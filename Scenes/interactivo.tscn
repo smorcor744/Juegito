@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://8duadopvx2ei"]
+
+[ext_resource type="Script" uid="uid://da3i2gekyf4f3" path="res://Scripts/interactivo.gd" id="1_l4d2t"]
+[ext_resource type="FontFile" uid="uid://co2wy6gwscbl5" path="res://Assets/BoldPixels.otf" id="2_l4d2t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jb6m7"]
+radius = 24.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_gsmk7"]
+font = ExtResource("2_l4d2t")
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Interactivo" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_l4d2t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jb6m7")
+
+[node name="Label" type="Label" parent="."]
+z_index = 4
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = -32.0
+offset_right = 38.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Presiona E"
+label_settings = SubResource("LabelSettings_gsmk7")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
