@@ -831,6 +831,7 @@ sources/1 = SubResource("TileSetAtlasSource_v1efw")
 size = Vector2(81, 5)
 
 [node name="Mapa" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-115.0]
 
 [node name="fondo" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -872,6 +873,10 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.154321
+offset_left = -32.0
+offset_top = -8.0
+offset_right = -32.0
+offset_bottom = -8.0
 grow_horizontal = 2
 script = ExtResource("5_xmgnr")
 full_heart_texture = ExtResource("6_55oxb")
@@ -894,5 +899,14 @@ offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Interactivo" parent="." instance=ExtResource("8_v1efw")]
-position = Vector2(38, -40)
+[node name="Heal" parent="." instance=ExtResource("8_v1efw")]
+position = Vector2(1088, 336)
+_signal = "heal"
+
+[node name="Enter_final" parent="." instance=ExtResource("8_v1efw")]
+position = Vector2(1424, 592)
+_signal = "enter_final"
+
+[node name="Unlock_attack" parent="." instance=ExtResource("8_v1efw")]
+position = Vector2(640, -96)
+_signal = "unlock_attack"

@@ -276,7 +276,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Player" type="CharacterBody2D" groups=["Enemi", "Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 script = ExtResource("1_i82fi")
 
