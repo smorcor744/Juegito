@@ -87,5 +87,4 @@ frame_progress = 0.895477
 position = Vector2(-0.143541, 3.15789)
 shape = SubResource("RectangleShape2D_11jpl")
 
-[connection signal="attacked" from="." to="." method="_on_attacked"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

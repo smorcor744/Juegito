@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://b8iqrqjnka4k7"]
+
+[node name="Respawn" type="Marker2D"]

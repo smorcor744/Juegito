@@ -287,16 +287,17 @@ shape = SubResource("CapsuleShape2D_740te")
 texture_filter = 1
 scale = Vector2(0.988982, 1)
 sprite_frames = SubResource("SpriteFrames_kht8a")
-animation = &"dead"
+animation = &"Attack"
 autoplay = "Idle"
-frame = 7
-frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 
-[connection signal="attacked" from="." to="." method="_on_attacked"]
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

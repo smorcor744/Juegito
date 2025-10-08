@@ -11,8 +11,12 @@ var coyote_frames = 6  # How many in-air frames to allow jumping
 var coyote = false  # Track whether we're in coyote time or not
 var last_floor = false  # Last frame's on-floor state
 var lifes = max_lifes
+var invulnerable = false
 
-signal attacked
+var knockback_timer := 0.0
+var knockback_vector := Vector2.ZERO
+
+
 signal life_changed(lifes)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -70,7 +74,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Down"):
 		position.y += 3
 	
+	# Aplica knockback si está activo
+	if knockback_timer > 0:
+		velocity = knockback_vector
+		knockback_timer -= delta
+
 	move_and_slide()
+
 
 	# Actualizamos last_floor al final, después de todo el procesamiento
 	last_floor = on_floor_now
@@ -84,9 +94,14 @@ func handel_flip():
 		animations_player.flip_h = true
 
 func take_damage(amount):
-	lifes -= amount
-	lifes = clamp(lifes, 0, max_lifes)
-	emit_signal("life_changed", lifes)
+	if invulnerable:
+		return
+	if !invulnerable:
+		$DamageTimer.start()
+		invulnerable = true
+		lifes -= amount
+		lifes = clamp(lifes, 0, max_lifes)
+		emit_signal("life_changed", lifes)
 	if lifes <= 0:
 		die()
 
@@ -94,6 +109,12 @@ func die():
 	animations_player.play("dead")
 	set_physics_process(false)  
 
+func apply_knockback(force: Vector2):
+	knockback_vector = force
+	knockback_timer = 0.2  # Duración del empuje (en segundos)
+
+func respawn():
+	get_tree().reload_current_scene()
 
 
 func _on_coyote_timer_timeout():
@@ -103,3 +124,8 @@ func _on_coyote_timer_timeout():
 func _on_animation_finished():
 	if animations_player.animation == "dead":
 		queue_free()
+		respawn()
+
+
+func _on_damage_timer_timeout() -> void:
+	invulnerable = false
