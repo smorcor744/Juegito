@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var max_lifes = 4
+@export var max_lifes = 5
 @export var damage = velocity.y
 @onready var animations_player = $AnimatedSprite2D
 
@@ -22,7 +22,7 @@ signal life_changed(lifes)
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	var life_node = get_parent().get_node_or_null("UI/Life")
+	var life_node = $UI/Life
 	if life_node:
 		connect("life_changed", Callable(life_node, "on_player_life_changed"))
 		emit_signal("life_changed", lifes)

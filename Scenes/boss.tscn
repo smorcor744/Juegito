@@ -68,7 +68,7 @@ size = Vector2(8.32536, 9.37799)
 
 [node name="Boss" type="CharacterBody2D" groups=["Enemi"]]
 z_index = 1
-scale = Vector2(10.45, 10.45)
+scale = Vector2(20, 20)
 script = ExtResource("1_x1xhu")
 
 [node name="Area2D" type="Area2D" parent="."]
