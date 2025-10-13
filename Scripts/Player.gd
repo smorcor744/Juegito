@@ -16,6 +16,7 @@ var invulnerable = false
 var knockback_timer := 0.0
 var knockback_vector := Vector2.ZERO
 
+var last_checkpoint_position: Vector2
 
 signal life_changed(lifes)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -114,7 +115,17 @@ func apply_knockback(force: Vector2):
 	knockback_timer = 0.2  # Duración del empuje (en segundos)
 
 func respawn():
-	get_tree().reload_current_scene()
+	if last_checkpoint_position != Vector2.ZERO:
+		global_position = last_checkpoint_position
+		lifes = max_lifes
+		invulnerable = false
+		set_physics_process(true)
+		animations_player.play("Idle")
+		emit_signal("life_changed", lifes)
+
+	else:
+		get_tree().reload_current_scene()  # si no hay checkpoint, reinicia
+
 
 
 func _on_coyote_timer_timeout():
@@ -123,9 +134,12 @@ func _on_coyote_timer_timeout():
 
 func _on_animation_finished():
 	if animations_player.animation == "dead":
-		queue_free()
 		respawn()
 
 
 func _on_damage_timer_timeout() -> void:
 	invulnerable = false
+
+
+func _on_checkpoint_checkpoint_activated(_position: Vector2) -> void:
+	last_checkpoint_position = _position

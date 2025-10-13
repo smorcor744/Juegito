@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://b260uf12gmnnj"]
+[gd_scene load_steps=22 format=4 uid="uid://b260uf12gmnnj"]
 
 [ext_resource type="Texture2D" uid="uid://catpbuocglpeh" path="res://Assets/Dungeon Tile Set.png" id="1_61mla"]
 [ext_resource type="Texture2D" uid="uid://dnxrnx8txehj4" path="res://Assets/industrial.v2.png" id="2_wgkft"]
 [ext_resource type="PackedScene" uid="uid://b1ul8sw4nghv3" path="res://Scenes/boss.tscn" id="3_k2yra"]
+[ext_resource type="Script" uid="uid://c815fjolkrmvo" path="res://Scripts/checkpoint.gd" id="4_k2yra"]
 [ext_resource type="PackedScene" uid="uid://do2hs7lxj8uhv" path="res://Scenes/player.tscn" id="4_wgkft"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ht8c0"]
@@ -826,6 +827,76 @@ sources/1 = SubResource("TileSetAtlasSource_2e7mp")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpuxc"]
 size = Vector2(210, 5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgkft"]
+size = Vector2(63, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2yra"]
+atlas = ExtResource("2_wgkft")
+region = Rect2(80, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht8c0"]
+atlas = ExtResource("2_wgkft")
+region = Rect2(144, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi6e3"]
+atlas = ExtResource("2_wgkft")
+region = Rect2(80, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dun6"]
+atlas = ExtResource("2_wgkft")
+region = Rect2(96, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e7mp"]
+atlas = ExtResource("2_wgkft")
+region = Rect2(112, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_611rc"]
+atlas = ExtResource("2_wgkft")
+region = Rect2(128, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpuxc"]
+atlas = ExtResource("2_wgkft")
+region = Rect2(144, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i7ttt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2yra")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht8c0")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi6e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dun6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2e7mp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_611rc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpuxc")
+}],
+"loop": false,
+"name": &"trancision",
+"speed": 5.0
+}]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgkft"]
 bg_color = Color(0, 0, 0, 1)
 
@@ -858,14 +929,25 @@ position = Vector2(39.5, -0.5)
 shape = SubResource("RectangleShape2D_lpuxc")
 one_way_collision = true
 
-[node name="Boss" parent="." instance=ExtResource("3_k2yra")]
-position = Vector2(-245, 3643.0002)
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(-40, -512)
-
 [node name="Player" parent="." instance=ExtResource("4_wgkft")]
-position = Vector2(-72, 247)
+position = Vector2(-39, -512)
+
+[node name="Checkpoint" type="Area2D" parent="."]
+position = Vector2(0, 185)
+script = ExtResource("4_k2yra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint"]
+position = Vector2(-0.5, -34)
+shape = SubResource("RectangleShape2D_wgkft")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Checkpoint"]
+texture_filter = 1
+position = Vector2(0, 14)
+sprite_frames = SubResource("SpriteFrames_i7ttt")
+animation = &"trancision"
+
+[node name="Boss" parent="." instance=ExtResource("3_k2yra")]
+position = Vector2(-245, 3646)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -877,3 +959,6 @@ offset_top = 221.0
 offset_right = 488.0
 offset_bottom = 464.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wgkft")
+
+[connection signal="body_entered" from="Checkpoint" to="Checkpoint" method="_on_body_entered"]
+[connection signal="checkpoint_activated" from="Checkpoint" to="Player" method="_on_checkpoint_checkpoint_activated"]

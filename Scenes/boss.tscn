@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1ul8sw4nghv3"]
+[gd_scene load_steps=15 format=3 uid="uid://b1ul8sw4nghv3"]
 
 [ext_resource type="Texture2D" uid="uid://dnxrnx8txehj4" path="res://Assets/industrial.v2.png" id="1_g4qv5"]
 [ext_resource type="Script" uid="uid://datscl3500vcj" path="res://Scripts/boss.gd" id="1_x1xhu"]
+[ext_resource type="FontFile" uid="uid://co2wy6gwscbl5" path="res://Assets/BoldPixels.otf" id="3_cxrok"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u5iye"]
 radius = 9.37848
@@ -66,6 +67,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11jpl"]
 size = Vector2(8.32536, 9.37799)
 
+[sub_resource type="LabelSettings" id="LabelSettings_ukjjc"]
+font = ExtResource("3_cxrok")
+font_size = 86
+shadow_size = 17
+shadow_color = Color(0, 0, 0, 1)
+
 [node name="Boss" type="CharacterBody2D" groups=["Enemi"]]
 z_index = 1
 scale = Vector2(20, 20)
@@ -87,4 +94,22 @@ frame_progress = 0.895477
 position = Vector2(-0.143541, 3.15789)
 shape = SubResource("RectangleShape2D_11jpl")
 
+[node name="Timer" type="Timer" parent="."]
+
+[node name="DamageNumbers" type="Node" parent="."]
+
+[node name="damage" type="Label" parent="DamageNumbers"]
+z_index = 4
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.081597224
+anchor_top = -0.2669753
+anchor_right = 0.081597224
+anchor_bottom = -0.13271604
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "sdada"
+label_settings = SubResource("LabelSettings_ukjjc")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
