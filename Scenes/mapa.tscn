@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=4 uid="uid://dn8e0hsvyb10y"]
+[gd_scene load_steps=16 format=4 uid="uid://dn8e0hsvyb10y"]
 
 [ext_resource type="PackedScene" uid="uid://do2hs7lxj8uhv" path="res://Scenes/player.tscn" id="1_joed5"]
 [ext_resource type="Texture2D" uid="uid://dnxrnx8txehj4" path="res://Assets/industrial.v2.png" id="2_htrho"]
 [ext_resource type="Texture2D" uid="uid://catpbuocglpeh" path="res://Assets/Dungeon Tile Set.png" id="3_im5cq"]
-[ext_resource type="PackedScene" uid="uid://b1ul8sw4nghv3" path="res://Scenes/boss.tscn" id="3_qpqsm"]
 [ext_resource type="Script" uid="uid://fuf2mx0fuq7n" path="res://Scripts/Life.gd" id="5_xmgnr"]
 [ext_resource type="Texture2D" uid="uid://dhdupam68td8y" path="res://Assets/heart.png" id="6_55oxb"]
 [ext_resource type="Texture2D" uid="uid://d1l3huese2vad" path="res://Assets/dead_heart.png" id="7_3aoby"]
@@ -861,9 +860,6 @@ position = Vector2(39.5, -0.5)
 shape = SubResource("RectangleShape2D_pc7ew")
 one_way_collision = true
 
-[node name="Boss" parent="." instance=ExtResource("3_qpqsm")]
-position = Vector2(1992, 560)
-
 [node name="Player" parent="." instance=ExtResource("1_joed5")]
 position = Vector2(-20, -23)
 
@@ -908,7 +904,7 @@ _signal = "heal"
 
 [node name="Enter_final" parent="." instance=ExtResource("8_v1efw")]
 position = Vector2(1424, 592)
-_signal = "enter_final"
+_signal = "enter"
 
 [node name="Unlock_attack" parent="." instance=ExtResource("8_v1efw")]
 position = Vector2(640, -96)
@@ -963,3 +959,6 @@ position = Vector2(1608, 224)
 
 [node name="fly_enemi7" parent="Enemigos" instance=ExtResource("10_yq38d")]
 position = Vector2(1624, 584)
+
+[connection signal="heal" from="Heal" to="Player" method="_on_heal_heal"]
+[connection signal="enter" from="Enter_final" to="Enter_final" method="_on_enter"]

@@ -4,6 +4,8 @@ extends Area2D
 signal unlock_attack
 @warning_ignore("unused_signal")
 signal enter
+@warning_ignore("unused_signal")
+signal heal
 
 @export var _signal: String = ""
 @onready var label: Label = $Label
@@ -29,3 +31,7 @@ func _process(_delta: float) -> void:
 	# Si está dentro y presiona E
 	if puede_interactuar and Input.is_action_just_pressed("interactuar"):
 		emit_signal(_signal)
+
+
+func _on_enter() -> void:
+	Global.change_scene("res://Scenes/final.tscn")

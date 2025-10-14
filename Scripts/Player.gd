@@ -143,3 +143,8 @@ func _on_damage_timer_timeout() -> void:
 
 func _on_checkpoint_checkpoint_activated(_position: Vector2) -> void:
 	last_checkpoint_position = _position
+
+
+func _on_heal_heal() -> void:
+	lifes = max_lifes
+	emit_signal("life_changed", lifes)
