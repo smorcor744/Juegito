@@ -521,7 +521,7 @@ texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_3smsa")
 theme_override_font_sizes/font_size = 30
-text = "Resume"
+text = "Restart"
 
 [node name="Mainmenu" type="Button" parent="Pause/VBoxContainer"]
 texture_filter = 1
@@ -534,4 +534,3 @@ text = "MainMenu"
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
 [connection signal="pressed" from="Pause/VBoxContainer/Restart" to="Pause" method="_on_restart_pressed"]
-[connection signal="pressed" from="Pause/VBoxContainer/Mainmenu" to="Pause" method="_on_mainmenu_pressed"]
