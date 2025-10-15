@@ -9,6 +9,9 @@ var patrol_point_a: Vector2
 var patrol_point_b: Vector2
 var target_point: Vector2
 
+var knockback_time := 0.3
+var knockback_timer := 0.0
+
 var player: Node2D = null
 var is_dead := false
 var is_chasing := false
@@ -29,10 +32,14 @@ func _physics_process(delta):
 	# Aplicar gravedad
 	velocity.y += gravity * delta
 
-	if player and is_chasing:
-		move_to(player.global_position, chase_speed)
-	elif not player:
-		patrol()
+	if knockback_timer > 0:
+		knockback_timer -= delta
+	else:
+		knockback_timer = 0
+		if player and is_chasing:
+			move_to(player.global_position, chase_speed)
+		elif not player:
+			patrol()
 
 	move_and_slide()
 
@@ -108,3 +115,8 @@ func handel_flip():
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "dead":
 		queue_free()
+
+
+func apply_knockback(force: Vector2) -> void:
+	velocity = force
+	knockback_timer = knockback_time

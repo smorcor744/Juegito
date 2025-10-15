@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Juego Inicial"
-run/main_scene="res://Scenes/mapa.tscn"
+run/main_scene="uid://d225wlbf73mmi"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

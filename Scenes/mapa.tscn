@@ -962,3 +962,4 @@ position = Vector2(1624, 584)
 
 [connection signal="heal" from="Heal" to="Player" method="_on_heal_heal"]
 [connection signal="enter" from="Enter_final" to="Enter_final" method="_on_enter"]
+[connection signal="unlock_attack" from="Unlock_attack" to="Player" method="_on_unlock_attack"]

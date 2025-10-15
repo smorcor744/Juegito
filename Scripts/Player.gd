@@ -2,8 +2,10 @@ extends CharacterBody2D
 
 @export var max_lifes = 5
 @export var damage = velocity.y
-@onready var animations_player = $AnimatedSprite2D
+@export var explosion_force := 400.0
 
+@onready var animations_player = $AnimatedSprite2D
+@onready var explosion_area  = $Explosion 
 const SPEED = 200.0
 const JUMP_VELOCITY = -350.0
 var jumping = false
@@ -12,7 +14,7 @@ var coyote = false  # Track whether we're in coyote time or not
 var last_floor = false  # Last frame's on-floor state
 var lifes = max_lifes
 var invulnerable = false
-
+var explosion = false
 var knockback_timer := 0.0
 var knockback_vector := Vector2.ZERO
 
@@ -24,6 +26,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	var life_node = $UI/Life
+	$Attack.visible = false
 	if life_node:
 		connect("life_changed", Callable(life_node, "on_player_life_changed"))
 		emit_signal("life_changed", lifes)
@@ -98,6 +101,10 @@ func take_damage(amount):
 	if invulnerable:
 		return
 	if !invulnerable:
+		if explosion:
+			$Attack.visible = true
+			$Attack.play("first")
+			apply_explosion_force()
 		$DamageTimer.start()
 		invulnerable = true
 		lifes -= amount
@@ -146,5 +153,30 @@ func _on_checkpoint_checkpoint_activated(_position: Vector2) -> void:
 
 
 func _on_heal_heal() -> void:
+	show_heal_flash()
 	lifes = max_lifes
 	emit_signal("life_changed", lifes)
+
+func show_heal_flash():
+	$AnimatedSprite2D.modulate = Color(1, 0, 0)  
+	await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.modulate = Color(1, 1, 1)  
+
+
+func _on_unlock_attack() -> void:
+	show_attack_flash()
+	explosion = true
+
+func show_attack_flash():
+	$AnimatedSprite2D.modulate = Color(0.092, 0.092, 0.092, 1.0)  
+	await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.modulate = Color(1, 1, 1)  
+
+
+func apply_explosion_force():
+	var bodies = explosion_area.get_overlapping_bodies()
+	for body in bodies:
+		if body.is_in_group("Enemi") and body.has_method("apply_knockback"):
+			var direction = (body.global_position - global_position).normalized()
+			var force = direction * explosion_force
+			body.apply_knockback(force)

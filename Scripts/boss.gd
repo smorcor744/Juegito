@@ -44,6 +44,7 @@ func _on_timer_timeout() -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "dead":
+		Global.change_scene("res://Scenes/control.tscn")
 		queue_free()
 
 

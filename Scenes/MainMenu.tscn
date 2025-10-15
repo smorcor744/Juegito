@@ -1,0 +1,109 @@
+[gd_scene load_steps=5 format=3 uid="uid://d225wlbf73mmi"]
+
+[ext_resource type="Script" uid="uid://ytsr6m2w55ph" path="res://Scripts/main_menu.gd" id="1_853f1"]
+[ext_resource type="FontFile" uid="uid://lqnlynds8dt4" path="res://Assets/BoldPixels.ttf" id="1_tt5f1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_853f1"]
+font = ExtResource("1_tt5f1")
+font_size = 221
+shadow_size = 23
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8saeu"]
+font = ExtResource("1_tt5f1")
+font_size = 80
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_853f1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08235294, 0.24705882, 1, 0.65882355)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44618055
+anchor_top = 0.0030864198
+anchor_right = 0.5538194
+anchor_bottom = 0.34567901
+grow_horizontal = 2
+grow_vertical = 2
+text = "Y"
+label_settings = SubResource("LabelSettings_853f1")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 29
+alignment = 1
+
+[node name="Button" type="Button" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tt5f1")
+theme_override_font_sizes/font_size = 80
+text = "Start"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.325
+anchor_top = -0.033333335
+anchor_right = 0.675
+anchor_bottom = 1.0333333
+offset_left = 67.5
+offset_top = 28.5
+offset_right = -67.5
+offset_bottom = -28.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+label_settings = SubResource("LabelSettings_8saeu")
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="Button" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer/Exit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.325
+anchor_top = -0.033333335
+anchor_right = 0.675
+anchor_bottom = 1.0333333
+offset_left = 67.5
+offset_top = 28.5
+offset_right = -67.5
+offset_bottom = -28.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_8saeu")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

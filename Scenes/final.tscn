@@ -957,14 +957,14 @@ animation = &"trancision"
 position = Vector2(-245, 3646)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0, 0, 0, 0.8666667)
 self_modulate = Color(0, 0, 0, 1)
 z_index = 6
 texture_filter = 1
 offset_left = -544.0
 offset_top = 221.0
 offset_right = 488.0
-offset_bottom = 464.0
+offset_bottom = 438.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wgkft")
 
 [node name="damage" type="Label" parent="."]

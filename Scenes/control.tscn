@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://ce8u5xljy0dl1"]
+
+[ext_resource type="Script" uid="uid://c0r16mtp0p5u4" path="res://Scripts/Fin.gd" id="1_cgmvo"]
+[ext_resource type="FontFile" uid="uid://lqnlynds8dt4" path="res://Assets/BoldPixels.ttf" id="2_vh8u0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wpaqk"]
+font = ExtResource("2_vh8u0")
+font_size = 221
+shadow_size = 23
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Fin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cgmvo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08235294, 0.24705882, 1, 0.65882355)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33810765
+anchor_top = 0.3287037
+anchor_right = 0.66189235
+anchor_bottom = 0.6712963
+grow_horizontal = 2
+grow_vertical = 2
+text = "FIN"
+label_settings = SubResource("LabelSettings_wpaqk")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="gui_input" from="ColorRect" to="." method="_on_gui_input"]
